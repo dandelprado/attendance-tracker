@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.yourcompany</groupId>
-    <artifactId>your-project-name</artifactId>
+    <artifactId>attendance-tracker</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -12,15 +12,40 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+  <build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>3.3.0</version>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <mainClass>ui.Login</mainClass>
+                    </manifest>
+                </archive>
+                <descriptorRefs>
+                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>make-assembly</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>single</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+
     <dependencies>
-        <!-- Add your dependencies here -->
-        <!-- Example: JDBC for database access -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.23</version>
         </dependency>
-
-        <!-- Add any other dependencies your project requires -->
     </dependencies>
 </project>

@@ -1,8 +1,13 @@
+ui/MainApplication$2.class
 db/AuthenticationService.class
 db/DatabaseConnect.class
+ui/MainApplication.class
 ui/Login.class
+ui/ResultDisplayFrame.class
 db/StudentDAO.class
+ui/StudentDisplayManager.class
 ui/Login$2.class
 ui/ViewStudentsFrame.class
 model/Student.class
+ui/MainApplication$1.class
 ui/Login$1.class

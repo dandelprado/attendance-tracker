@@ -1,0 +1,25 @@
+{
+    "version": "2",
+    "tasks": [
+      {
+        "label": "build",
+        "type": "shell",
+        "command": "javac",
+        "args": ["-d", "bin", "-cp", "${workspaceFolder}/src", "*.java"],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      },
+      {
+        "label": "run",
+        "type": "shell",
+        "command": "java",
+        "args": ["-cp", "${workspaceFolder}/bin", "YourMainClass"],
+        "group": {
+          "kind": "test",
+          "isDefault": true
+        }
+      }
+    ]
+  }
