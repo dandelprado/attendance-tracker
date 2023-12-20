@@ -1,10 +1,14 @@
-ui/MainApplication$2.class
+utility/CSVParser.class
 db/AuthenticationService.class
+ui/MainApplication$2.class
+model/StudentAttendance.class
 db/DatabaseConnect.class
+ui/MainApplication$3.class
 ui/MainApplication.class
+model/AbsenceCalculator.class
 ui/Login.class
-ui/ResultDisplayFrame.class
 db/StudentDAO.class
+ui/ResultDisplayFrame.class
 ui/StudentDisplayManager.class
 ui/Login$2.class
 ui/ViewStudentsFrame.class

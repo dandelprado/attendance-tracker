@@ -3,10 +3,18 @@ package ui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import db.StudentDAO;
+import model.AbsenceCalculator;
+import model.StudentAttendance;
+import utility.CSVParser;
 
 public class MainApplication extends JFrame {
 
@@ -16,13 +24,14 @@ public class MainApplication extends JFrame {
 
     private void initUI() {
         setTitle("Attendance Tracker");
-        setSize(300, 150);
+        setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(1, 1));
+        mainPanel.setLayout(new GridLayout(2, 1));
 
         JButton viewStudentsButton = new JButton("View Student Data");
+        JButton uploadCSVButton = new JButton("Upload CSV File");
 
         viewStudentsButton.addActionListener(new ActionListener() {
             @Override
@@ -31,7 +40,15 @@ public class MainApplication extends JFrame {
             }
         });
 
+        uploadCSVButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openCSVFileChooser();
+            }
+        });
+
         mainPanel.add(viewStudentsButton);
+        mainPanel.add(uploadCSVButton);
 
         add(mainPanel);
     }
@@ -39,6 +56,31 @@ public class MainApplication extends JFrame {
     private void openViewStudentsScreen() {
         ViewStudentsFrame viewStudentsFrame = new ViewStudentsFrame();
         viewStudentsFrame.setVisible(true);
+    }
+
+    private void openCSVFileChooser() {
+        JFileChooser fileChooser = new JFileChooser();
+        int returnVal = fileChooser.showOpenDialog(MainApplication.this);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+            processCSVFile(filePath);
+        }
+    }
+
+    private void processCSVFile(String filePath) {
+        CSVParser parser = new CSVParser();
+        List<StudentAttendance> attendanceRecords = parser.parseCSV(filePath);
+
+        AbsenceCalculator calculator = new AbsenceCalculator();
+        calculator.calculateAbsences(attendanceRecords);
+
+        // Update Database
+        StudentDAO studentDAO = new StudentDAO();
+        studentDAO.updateStudentAbsences(attendanceRecords);
+
+        // Display a confirmation message
+        JOptionPane.showMessageDialog(null, "Attendance data processed and updated successfully.");
     }
 
     public static void main(String[] args) {

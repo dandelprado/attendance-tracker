@@ -2,71 +2,31 @@ package db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-import model.Student;
+import model.StudentAttendance;
 
 public class StudentDAO {
-    private DatabaseConnect dbConnect = new DatabaseConnect();
 
-    public List<Student> getStudentsByYearLevel(int yearLevel) {
-        List<Student> students = new ArrayList<>();
+    private DatabaseConnect dbConnect;
 
-        try (Connection connection = dbConnect.getConnection();
-                PreparedStatement statement = connection.prepareStatement(
-                        "SELECT * FROM Students WHERE YearLevel = ?")) {
-
-            statement.setInt(1, yearLevel);
-
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    Student student = mapResultSetToStudent(resultSet);
-                    students.add(student);
-                }
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Error fetching students by year level", e);
-        }
-
-        return students;
+    public StudentDAO() {
+        dbConnect = new DatabaseConnect();
     }
 
-    public List<Student> getStudentsByBirthdayMonth(int month) {
-        List<Student> students = new ArrayList<>();
+    public void updateStudentAbsences(List<StudentAttendance> attendanceRecords) {
+        String sql = "UPDATE Students SET Absences = Absences + ? WHERE StudentNumber = ?";
 
-        try (Connection connection = dbConnect.getConnection();
-                PreparedStatement statement = connection.prepareStatement(
-                        "SELECT * FROM Students WHERE MONTH(Birthday) = ?")) {
+        try (Connection conn = dbConnect.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            statement.setInt(1, month);
-
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    Student student = mapResultSetToStudent(resultSet);
-                    students.add(student);
-                }
+            for (StudentAttendance record : attendanceRecords) {
+                pstmt.setInt(1, record.getAbsences());
+                pstmt.setString(2, record.getStudentNumber());
+                pstmt.executeUpdate();
             }
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Error fetching students by birthday month", e);
+        } catch (Exception e) {
+            e.printStackTrace(); // Replace with proper error handling
         }
-
-        return students;
-    }
-
-    private Student mapResultSetToStudent(ResultSet resultSet) throws SQLException {
-        String firstName = resultSet.getString("FirstName");
-        String lastName = resultSet.getString("LastName");
-        String studentNumber = resultSet.getString("StudentNumber");
-        String email = resultSet.getString("Email");
-        String contactNumber = resultSet.getString("ContactNumber");
-        java.sql.Date birthday = resultSet.getDate("Birthday");
-        int yearLevel = resultSet.getInt("YearLevel");
-
-        return new Student(firstName, lastName, studentNumber, email, contactNumber, birthday, yearLevel);
     }
 }

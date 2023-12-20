@@ -1,9 +1,12 @@
 /home/dan/attendance-tracker/src/main/java/ui/ResultDisplayFrame.java
 /home/dan/attendance-tracker/src/main/java/db/StudentDAO.java
+/home/dan/attendance-tracker/src/main/java/model/StudentAttendance.java
+/home/dan/attendance-tracker/src/main/java/utility/CSVParser.java
 /home/dan/attendance-tracker/src/main/java/db/AuthenticationService.java
-/home/dan/attendance-tracker/src/main/java/ui/Login.java
 /home/dan/attendance-tracker/src/main/java/ui/MainApplication.java
+/home/dan/attendance-tracker/src/main/java/ui/Login.java
 /home/dan/attendance-tracker/src/main/java/model/Student.java
 /home/dan/attendance-tracker/src/main/java/db/DatabaseConnect.java
+/home/dan/attendance-tracker/src/main/java/model/AbsenceCalculator.java
 /home/dan/attendance-tracker/src/main/java/ui/StudentDisplayManager.java
 /home/dan/attendance-tracker/src/main/java/ui/ViewStudentsFrame.java
