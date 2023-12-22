@@ -3,6 +3,7 @@ db/AuthenticationService.class
 ui/MainApplication$2.class
 model/StudentAttendance.class
 db/DatabaseConnect.class
+utility/CSVParser$ParseResult.class
 ui/MainApplication$3.class
 ui/MainApplication.class
 model/AbsenceCalculator.class

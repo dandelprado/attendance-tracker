@@ -44,6 +44,8 @@ public class StudentDisplayManager {
             fields.add("ContactNumber");
         if (includeBirthday)
             fields.add("Birthday");
+        if (includeAbsences)
+            fields.add("Absences");
 
         String query = createQuery(fields, yearLevel);
 

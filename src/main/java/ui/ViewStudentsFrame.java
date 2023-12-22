@@ -16,6 +16,7 @@ public class ViewStudentsFrame extends JFrame {
     private JCheckBox contactNumberCheckbox;
     private JCheckBox birthdayCheckbox;
     private JTextField yearLevelField;
+    private JCheckBox absencesCheckBox;
 
     public ViewStudentsFrame() {
         setTitle("View Students");
@@ -40,10 +41,12 @@ public class ViewStudentsFrame extends JFrame {
         emailCheckbox = createCheckBox("Email");
         contactNumberCheckbox = createCheckBox("Contact Number");
         birthdayCheckbox = createCheckBox("Birthday");
+        absencesCheckBox = createCheckBox("# of Absences");
 
         checkBoxPanel.add(emailCheckbox);
         checkBoxPanel.add(contactNumberCheckbox);
         checkBoxPanel.add(birthdayCheckbox);
+        checkBoxPanel.add(absencesCheckBox);
 
         JButton displayButton = createDisplayButton();
 
@@ -67,10 +70,11 @@ public class ViewStudentsFrame extends JFrame {
         boolean includeEmail = emailCheckbox.isSelected();
         boolean includeContactNumber = contactNumberCheckbox.isSelected();
         boolean includeBirthday = birthdayCheckbox.isSelected();
+        boolean includeAbsences = absencesCheckBox.isSelected();
         String yearLevel = yearLevelField.getText();
 
         StudentDisplayManager displayManager = new StudentDisplayManager();
         displayManager.displayStudentsWithFields(
-                includeEmail, includeContactNumber, includeBirthday, yearLevel);
+                includeEmail, includeContactNumber, includeBirthday, includeAbsences, yearLevel);
     }
 }

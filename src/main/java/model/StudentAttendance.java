@@ -23,10 +23,6 @@ public class StudentAttendance {
         this.absences++;
     }
 
-    public void setAbsences(int absences) {
-        this.absences = absences;
-    }
-
     // Getters and setters
 
     public String getGeneratedTimeInCode() {
