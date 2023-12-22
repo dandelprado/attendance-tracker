@@ -3,7 +3,12 @@ package ui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +23,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
+import db.DatabaseConnect;
 import db.StudentDAO;
 import model.AbsenceCalculator;
 import model.StudentAttendance;
@@ -83,9 +89,14 @@ public class MainApplication extends JFrame {
                 try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
                     contentStream.beginText();
                     contentStream.setFont(PDType1Font.HELVETICA, 12);
-                    contentStream.newLineAtOffset(25, 500);
-                    String text = "Attendance Report";
-                    contentStream.showText(text);
+                    contentStream.newLineAtOffset(25, 700);
+
+                    String header = "Attendance Report";
+                    contentStream.showText(header);
+                    contentStream.newLineAtOffset(0, -20); // Move to the next line
+
+                    // Fetch and write student data
+                    writeStudentData(contentStream);
                     contentStream.endText();
                 }
 
@@ -95,6 +106,23 @@ public class MainApplication extends JFrame {
                 JOptionPane.showMessageDialog(null, "Attendance Report saved successfully at " + savePath);
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "Error while generating PDF: " + e.getMessage());
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "SQL error: " + e.getMessage());
+            }
+        }
+    }
+
+    private void writeStudentData(PDPageContentStream contentStream) throws IOException, SQLException {
+        String query = "SELECT FirstName, LastName, StudentNumber, Absences FROM Students";
+        try (Connection conn = DatabaseConnect.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String line = rs.getString("FirstName") + " " + rs.getString("LastName") + " - " +
+                        rs.getString("StudentNumber") + " - " + rs.getInt("Absences");
+                contentStream.showText(line);
+                contentStream.newLineAtOffset(0, -15); // Move to the next line
             }
         }
     }
