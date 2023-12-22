@@ -16,7 +16,7 @@ public class StudentDisplayManager {
 
     public void displayStudentsWithFields(
             boolean includeEmail, boolean includeContactNumber,
-            boolean includeBirthday, String yearLevel) {
+            boolean includeBirthday, boolean includeAbsences, String yearLevel) {
 
         int year;
         if (yearLevel.isEmpty() || yearLevel.equalsIgnoreCase("All")) {

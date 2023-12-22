@@ -69,23 +69,33 @@ public class MainApplication extends JFrame {
     }
 
     public void generateAttendancePDF() {
-        try (PDDocument document = new PDDocument()) {
-            PDPage page = new PDPage();
-            document.addPage(page);
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Choose a directory to save your report:");
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        int userSelection = fileChooser.showSaveDialog(this);
 
-            try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
-                contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA, 12);
-                contentStream.newLineAtOffset(25, 500);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            try (PDDocument document = new PDDocument()) {
+                PDPage page = new PDPage();
+                document.addPage(page);
 
-                String text = "Attendance Report";
-                contentStream.showText(text);
-                contentStream.endText();
+                try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+                    contentStream.beginText();
+                    contentStream.setFont(PDType1Font.HELVETICA, 12);
+                    contentStream.newLineAtOffset(25, 500);
+                    String text = "Attendance Report";
+                    contentStream.showText(text);
+                    contentStream.endText();
+                }
+
+                File selectedDirectory = fileChooser.getSelectedFile();
+                String savePath = selectedDirectory.getAbsolutePath() + File.separator + "AttendanceReport.pdf";
+                document.save(savePath);
+                JOptionPane.showMessageDialog(null, "Attendance Report saved successfully at " + savePath);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Error while generating PDF: " + e.getMessage());
             }
-
-            document.save("AttendanceReport.pdf");
-        } catch (IOException e) {
-            System.err.println("Error while generating PDF: " + e.getMessage());
         }
     }
 
