@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -70,10 +71,13 @@ public class MainApplication extends JFrame {
 
     private void processCSVFile(String filePath) {
         CSVParser parser = new CSVParser();
-        List<StudentAttendance> attendanceRecords = parser.parseCSV(filePath);
+        CSVParser.ParseResult parseResult = parser.parseCSV(filePath);
+        List<StudentAttendance> attendanceRecords = parseResult.getAttendanceRecords();
+        Set<String> generatedTimeInCodes = parseResult.getGeneratedTimeInCodes();
+        Set<String> generatedTimeOutCodes = parseResult.getGeneratedTimeOutCodes();
 
         AbsenceCalculator calculator = new AbsenceCalculator();
-        calculator.calculateAbsences(attendanceRecords);
+        calculator.calculateAbsences(attendanceRecords, generatedTimeInCodes, generatedTimeOutCodes);
 
         // Update Database
         StudentDAO studentDAO = new StudentDAO();

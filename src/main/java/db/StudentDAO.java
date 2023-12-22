@@ -26,7 +26,7 @@ public class StudentDAO {
                 pstmt.executeUpdate();
             }
         } catch (Exception e) {
-            e.printStackTrace(); // Replace with proper error handling
+            e.printStackTrace();
         }
     }
 }
