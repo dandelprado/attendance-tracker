@@ -24,14 +24,12 @@ public class CSVParser {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
 
-                // Parse the columns
-                String studentNumber = values[0].trim();
-                String timeInCode = values.length > 1 ? values[1].trim() : "";
-                String timeOutCode = values.length > 2 ? values[2].trim() : "";
+                String studentNumber = values.length > 0 ? values[0].trim() : "";
+                String timeInCode = values.length > 1 && !values[1].trim().isEmpty() ? values[1].trim() : null;
+                String timeOutCode = values.length > 2 && !values[2].trim().isEmpty() ? values[2].trim() : null;
                 String generatedTimeInCode = values.length > 3 ? values[3].trim() : "";
                 String generatedTimeOutCode = values.length > 4 ? values[4].trim() : "";
 
-                // Add generated codes to sets
                 if (!generatedTimeInCode.isEmpty()) {
                     generatedTimeInCodes.add(generatedTimeInCode);
                 }
@@ -39,19 +37,24 @@ public class CSVParser {
                     generatedTimeOutCodes.add(generatedTimeOutCode);
                 }
 
-                // Create a new StudentAttendance object and add it to the list
-                StudentAttendance record = new StudentAttendance(
-                        studentNumber, timeInCode, timeOutCode, generatedTimeInCode, generatedTimeOutCode);
-                attendanceRecords.add(record);
+                // Handling rows with empty StudentNumber
+                if (studentNumber.isEmpty() && timeInCode == null && timeOutCode == null) {
+                    StudentAttendance record = new StudentAttendance(
+                            "EmptyStudentNumber", null, null, generatedTimeInCode, generatedTimeOutCode);
+                    attendanceRecords.add(record);
+                } else if (!studentNumber.isEmpty()) {
+                    StudentAttendance record = new StudentAttendance(
+                            studentNumber, timeInCode, timeOutCode, generatedTimeInCode, generatedTimeOutCode);
+                    attendanceRecords.add(record);
+                }
             }
         } catch (IOException e) {
-            e.printStackTrace(); // Proper error handling should be implemented
+            e.printStackTrace();
         }
 
         return new ParseResult(attendanceRecords, generatedTimeInCodes, generatedTimeOutCodes);
     }
 
-    // Class to hold the parse result
     public static class ParseResult {
         private final List<StudentAttendance> attendanceRecords;
         private final Set<String> generatedTimeInCodes;
