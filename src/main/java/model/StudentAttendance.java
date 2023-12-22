@@ -6,7 +6,7 @@ public class StudentAttendance {
     private String timeOutCode;
     private String generatedTimeInCode;
     private String generatedTimeOutCode;
-    private int absences; // To track the number of absences
+    private int absences;
 
     public StudentAttendance(String studentNumber, String timeInCode, String timeOutCode, String generatedTimeInCode,
             String generatedTimeOutCode) {
@@ -15,21 +15,17 @@ public class StudentAttendance {
         this.timeOutCode = timeOutCode;
         this.generatedTimeInCode = generatedTimeInCode;
         this.generatedTimeOutCode = generatedTimeOutCode;
-        this.absences = 0; // Initial absence count
+        this.absences = 0;
     }
 
-    // Increment the absence count
     public void incrementAbsence() {
         this.absences++;
     }
-
-    // Getters and setters
 
     public String getGeneratedTimeInCode() {
         return generatedTimeInCode;
     }
 
-    // Getter for generatedTimeOutCode
     public String getGeneratedTimeOutCode() {
         return generatedTimeOutCode;
     }

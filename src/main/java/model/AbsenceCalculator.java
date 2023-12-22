@@ -10,17 +10,14 @@ public class AbsenceCalculator {
         for (StudentAttendance record : attendanceRecords) {
             int absences = 0;
 
-            // Counting absences for TimeINCode
             if (record.getTimeInCode() == null || !generatedTimeInCodes.contains(record.getTimeInCode())) {
                 absences++;
             }
 
-            // Counting absences for TimeOUTCode
             if (record.getTimeOutCode() == null || !generatedTimeOutCodes.contains(record.getTimeOutCode())) {
                 absences++;
             }
 
-            // Setting the total absences for the record
             record.setAbsences(absences);
         }
     }
