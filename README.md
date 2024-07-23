@@ -35,13 +35,13 @@ This tool is essential for managing and analyzing attendance records accurately 
 ## Screenshots
 
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-  <img src="path/to/1.png" alt="Screenshot 1" style="width: 48%; margin-bottom: 1%;" />
-  <img src="path/to/2.png" alt="Screenshot 2" style="width: 48%; margin-bottom: 1%;" />
-  <img src="path/to/3.png" alt="Screenshot 3" style="width: 48%; margin-bottom: 1%;" />
-  <img src="path/to/4.png" alt="Screenshot 4" style="width: 48%; margin-bottom: 1%;" />
-  <img src="path/to/5.png" alt="Screenshot 5" style="width: 48%; margin-bottom: 1%;" />
-  <img src="path/to/6.png" alt="Screenshot 6" style="width: 48%; margin-bottom: 1%;" />
-  <img src="path/to/7.png" alt="Screenshot 7" style="width: 48%; margin-bottom: 1%;" />
-  <img src="path/to/8.png" alt="Screenshot 8" style="width: 48%; margin-bottom: 1%;" />
-  <img src="path/to/9.png" alt="Screenshot 9" style="width: 48%; margin-bottom: 1%;" />
+  <img src="screenshots/1.png" alt="Screenshot 1" style="width: 48%; margin-bottom: 1%;" />
+  <img src="screenshots/2.png" alt="Screenshot 2" style="width: 48%; margin-bottom: 1%;" />
+  <img src="screenshots/3.png" alt="Screenshot 3" style="width: 48%; margin-bottom: 1%;" />
+  <img src="screenshots/4.png" alt="Screenshot 4" style="width: 48%; margin-bottom: 1%;" />
+  <img src="screenshots/5.png" alt="Screenshot 5" style="width: 48%; margin-bottom: 1%;" />
+  <img src="screenshots/6.png" alt="Screenshot 6" style="width: 48%; margin-bottom: 1%;" />
+  <img src="screenshots/7.png" alt="Screenshot 7" style="width: 48%; margin-bottom: 1%;" />
+  <img src="screenshots/8.png" alt="Screenshot 8" style="width: 48%; margin-bottom: 1%;" />
+  <img src="screenshots/9.png" alt="Screenshot 9" style="width: 48%; margin-bottom: 1%;" />
 </div>
